@@ -1,0 +1,73 @@
+--- ./extract/lenok-services/smali/com/android/server/pm/PackageManagerService.smali	2016-09-23 20:11:24.609775320 +0300
++++ ./extract/lenok-services/smali/com/android/server/pm/PackageManagerService.smali	2016-09-22 21:48:35.326576000 +0300
+@@ -30161,70 +30161,6 @@
+ 
+     iput-object v5, v4, Lcom/android/server/pm/PackageSignatures;->mSignatures:[Landroid/content/pm/Signature;
+ 
+-    .line 6764
+-    move-object/from16 v0, v59
+-
+-    iget-object v4, v0, Lcom/android/server/pm/PackageSetting;->sharedUser:Lcom/android/server/pm/SharedUserSetting;
+-
+-    if-eqz v4, :cond_1e
+-
+-    .line 6765
+-    move-object/from16 v0, v59
+-
+-    iget-object v4, v0, Lcom/android/server/pm/PackageSetting;->sharedUser:Lcom/android/server/pm/SharedUserSetting;
+-
+-    iget-object v4, v4, Lcom/android/server/pm/SharedUserSetting;->signatures:Lcom/android/server/pm/PackageSignatures;
+-
+-    iget-object v4, v4, Lcom/android/server/pm/PackageSignatures;->mSignatures:[Landroid/content/pm/Signature;
+-
+-    .line 6766
+-    move-object/from16 v0, p1
+-
+-    iget-object v5, v0, Landroid/content/pm/PackageParser$Package;->mSignatures:[Landroid/content/pm/Signature;
+-
+-    .line 6765
+-    invoke-static {v4, v5}, Lcom/android/server/pm/PackageManagerService;->compareSignatures([Landroid/content/pm/Signature;[Landroid/content/pm/Signature;)I
+-
+-    move-result v4
+-
+-    if-eqz v4, :cond_1e
+-
+-    .line 6767
+-    new-instance v4, Lcom/android/server/pm/PackageManagerException;
+-
+-    .line 6769
+-    new-instance v5, Ljava/lang/StringBuilder;
+-
+-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+-
+-    const-string/jumbo v11, "Signature mismatch for shared user : "
+-
+-    invoke-virtual {v5, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v5
+-
+-    .line 6770
+-    move-object/from16 v0, v59
+-
+-    iget-object v11, v0, Lcom/android/server/pm/PackageSetting;->sharedUser:Lcom/android/server/pm/SharedUserSetting;
+-
+-    .line 6769
+-    invoke-virtual {v5, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v5
+-
+-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v5
+-
+-    .line 6768
+-    const/16 v11, -0x68
+-
+-    .line 6767
+-    invoke-direct {v4, v11, v5}, Lcom/android/server/pm/PackageManagerException;-><init>(ILjava/lang/String;)V
+-
+-    throw v4
+-
+     .line 6774
+     :cond_1e
+     new-instance v4, Ljava/lang/StringBuilder;
