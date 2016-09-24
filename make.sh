@@ -53,6 +53,7 @@ apktool d -f -o ./extract/lenok-services/ ./extract/lenok/framework/services.jar
 
 sudo patch -p0 -l < ./patch/dory.patch
 # Disable checking certs for shared system apps
+# framework-res.apk is app with shared user id, so system checks it anyway. Let's avoid this
 patch -p0 -l < ./patch/shared-certs.patch
 sudo sed -i "/\b\(ro.build.expect.bootloader\|ro.expect.recovery_id\)\b/d" ./extract/lenok/build.prop
 cp ./patch/product_image.png ./extract/lenok-OEMSetup/res/drawable-hdpi/
@@ -80,6 +81,7 @@ sudo sh -c "(cat ./extract/lenok-services/dist/services.jar > ./extract/lenok/fr
 
 cd ./extract/
 rm -rf ./lenok-*/
+# Remove useless patch'es backup file (it thinks that somethink can go wrong)
 sudo rm ./lenok/build.prop.orig
 
 sudo cp -a ./dory/bin/batteryd ./lenok/bin/
@@ -110,6 +112,7 @@ cd ../
 echo
 echo "***** Making system image... *****"
 echo
+# You can grab file_contexts from boot image for now (as I've done)
 sudo ./prebuilt/mksquashfs ./extract/lenok/ system4dory.img -comp gzip -b 131072 -no-exports -noappend -android-fs-config \
 -context-file file_contexts -mount-point /system
 sudo chmod 777 system4dory.img
