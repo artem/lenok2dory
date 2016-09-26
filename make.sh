@@ -28,7 +28,7 @@ sudo rm install-recovery.sh irsc_util sensors.qcom subsystem_ramdump wpa_supplic
 
 cd ../etc/
 sudo rm -rf dhcpcd/dhcpcd.conf firmware/ permissions/android.hardware.sensor.barometer.xml permissions/android.hardware.sensor.heartrate.xml \
-heartrate/android.hardware.wifi.xml recovery-resource.dat sensors/sensor_def_lenok.conf wifi/
+permissions/android.hardware.wifi.xml recovery-resource.dat sensors/sensor_def_lenok.conf wifi/
 
 cd ../lib/
 sudo rm libwpa_client.so hw/*lenok.so
