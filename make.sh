@@ -50,6 +50,11 @@ echo
 apktool d -f -o ./extract/lenok-framework-res/ ./extract/lenok/framework/framework-res.apk
 apktool d -f -r -o ./extract/lenok-OEMSetup/ ./extract/lenok/priv-app/OEMSetup/OEMSetup.apk
 apktool d -f -o ./extract/lenok-services/ ./extract/lenok/framework/services.jar
+apktool if -p ./temp-frame/ ./extract/lenok/framework/framework-res.apk
+apktool d -f -p ./temp-frame/ -o ./extract/lenok-SettingsProvider/ ./extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk
+apktool d -f -p ./temp-frame/ -o ./extract/lenok-ClockworkAmbient/ ./extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
+apktool d -f -p ./temp-frame/ -o ./extract/lenok-ClockworkSettings/ ./extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
+apktool d -f -p ./temp-frame/ -o ./extract/lenok-MinModWatchfaces/ ./extract/lenok/priv-app/MinModWatchfaces/MinModWatchfaces.apk
 
 sudo patch -p0 -l < ./patch/dory.patch
 # Disable checking certs for shared system apps
@@ -58,6 +63,37 @@ patch -p0 -l < ./patch/shared-certs.patch
 sudo sed -i "/\b\(ro.build.expect.bootloader\|ro.expect.recovery_id\)\b/d" ./extract/lenok/build.prop
 cp ./patch/product_image.png ./extract/lenok-OEMSetup/res/drawable-hdpi/
 
+apktool b -c ./extract/lenok-SettingsProvider/
+cd ./extract/lenok-SettingsProvider/dist/
+zipalign -fpt 4 ./SettingsProvider.apk ./SettingsProvider-aligned.apk
+mv ./SettingsProvider-aligned.apk ./SettingsProvider.apk
+cd ../../../
+sudo sh -c "(cat ./extract/lenok-SettingsProvider/dist/SettingsProvider.apk > ./extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk)"
+
+apktool b -c ./extract/lenok-ClockworkAmbient/
+cd ./extract/lenok-ClockworkAmbient/dist/
+zipalign -fpt 4 ./ClockworkAmbient.apk ./ClockworkAmbient-aligned.apk
+mv ./ClockworkAmbient-aligned.apk ./ClockworkAmbient.apk
+cd ../../../
+sudo sh -c "(cat ./extract/lenok-ClockworkAmbient/dist/ClockworkAmbient.apk > ./extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk)"
+
+apktool b -c ./extract/lenok-ClockworkSettings/
+cd ./extract/lenok-ClockworkSettings/dist/
+zipalign -fpt 4 ./ClockworkSettings.apk ./ClockworkSettings-aligned.apk
+mv ./ClockworkSettings-aligned.apk ./ClockworkSettings.apk
+cd ../../../
+sudo sh -c "(cat ./extract/lenok-ClockworkSettings/dist/ClockworkSettings.apk > ./extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk)"
+
+apktool b -c ./extract/lenok-MinModWatchfaces/
+cd ./extract/lenok-MinModWatchfaces/dist/
+zipalign -fpt 4 ./MinModWatchfaces.apk ./MinModWatchfaces-aligned.apk
+mv ./MinModWatchfaces-aligned.apk ./MinModWatchfaces.apk
+cd ../../../
+sudo sh -c "(cat ./extract/lenok-MinModWatchfaces/dist/MinModWatchfaces.apk > ./extract/lenok/priv-app/MinModWatchfaces/MinModWatchfaces.apk)"
+
+rm -rf ./temp-frame/
+
+sudo rm ./extract/lenok-OEMSetup/smali/com/lge/wearable/oemconfig/SetupBroadcastReceiver.smali.orig
 apktool b -c ./extract/lenok-OEMSetup/
 cd ./extract/lenok-OEMSetup/dist/
 zipalign -fpt 4 ./OEMSetup.apk ./OEMSetup-aligned.apk
