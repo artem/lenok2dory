@@ -1,5 +1,5 @@
---- ./extract/lenok/build.prop	2009-01-01 11:00:00.000000000 +0300
-+++ ./extract/lenok/build.prop	2009-01-01 11:00:00.000000000 +0300
+--- extract/lenok/build.prop
++++ extract/lenok/build.prop
 @@ -19,10 +19,10 @@
  ro.build.tags=release-keys
 -ro.build.flavor=lenok-user
@@ -23,7 +23,7 @@
 -ro.build.product=lenok
 +ro.build.product=dory
  # Do not try to parse description, fingerprint, or thumbprint
-@@ -45,23 +45,8 @@
+@@ -45,19 +45,8 @@
  #
  # ADDITIONAL_BUILD_PROPERTIES
  #
@@ -40,23 +40,28 @@
 -ro.qti.sensors.facing=false
 -ro.qti.sensors.tilt=false
 -ro.qti.sensors.cmc=false
--dalvik.vm.image-dex2oat-threads=2
--dalvik.vm.boot-dex2oat-threads=2
+ dalvik.vm.image-dex2oat-threads=2
+ dalvik.vm.boot-dex2oat-threads=2
+ dalvik.vm.dex2oat-threads=2
+@@ -72,8 +61,6 @@
+ pm.dexopt.core-app=space
+ pm.dexopt.first-boot=interpret-only
+ pm.dexopt.boot=space
 -wifi.interface=wlan0
 -wifi.supplicant_scan_interval=15
  persist.hwc.mdpcomp.enable=true
  dalvik.vm.heapstartsize=5m
  dalvik.vm.heapgrowthlimit=48m
---- ./extract/lenok/etc/bluetooth/bt_vendor.conf	2009-01-01 11:00:00.000000000 +0300
-+++ ./extract/lenok/etc/bluetooth/bt_vendor.conf	2009-01-01 11:00:00.000000000 +0300
+--- extract/lenok/etc/bluetooth/bt_vendor.conf
++++ extract/lenok/etc/bluetooth/bt_vendor.conf
 @@ -3,4 +3,4 @@
  
  # Firmware patch file location
  FwPatchFilePath = /vendor/firmware/
 -FwPatchFileName = 4343A0.hcd
 +FwPatchFileName = BCM20702A.hcd
---- ./extract/lenok/usr/idc/synaptics_rmi4_i2c.idc	2009-01-01 11:00:00.000000000 +0300
-+++ ./extract/lenok/usr/idc/synaptics_rmi4_i2c.idc	2009-01-01 11:00:00.000000000 +0300
+--- extract/lenok/usr/idc/synaptics_rmi4_i2c.idc
++++ extract/lenok/usr/idc/synaptics_rmi4_i2c.idc
 @@ -13,7 +13,7 @@
  # limitations under the License.
  
@@ -66,46 +71,48 @@
  #
  
  device.internal = 1
---- ./extract/lenok-framework-res/res/values/arrays.xml	2016-09-14 18:16:34.474581025 +0300
-+++ ./extract/lenok-framework-res/res/values/arrays.xml	2016-09-14 18:14:58.305371011 +0300
-@@ -469,7 +469,6 @@
-         <item>clock</item>
-     </string-array>
+--- temp/lenok-framework-res/res/values/arrays.xml
++++ temp/lenok-framework-res/res/values/arrays.xml
+@@ -258,5 +258,4 @@
      <string-array name="networkAttributes">
 -        <item>wifi,1,1,1,-1,true</item>
          <item>bluetooth,7,7,2,-1,true</item>
          <item>proxy,16,16,1,-1,true</item>
      </string-array>
---- ./extract/lenok-framework-res/res/values/bools.xml	2016-09-14 18:16:34.974564084 +0300
-+++ ./extract/lenok-framework-res/res/values/bools.xml	2016-09-14 18:14:58.185373538 +0300
-@@ -24,7 +24,7 @@
+--- temp/lenok-framework-res/res/values/bools.xml
++++ temp/lenok-framework-res/res/values/bools.xml
+@@ -23,10 +23,10 @@
      <bool name="config_autoPowerModePrefetchLocation">false</bool>
      <bool name="config_wifi_dual_band_support">false</bool>
      <bool name="config_wifi_hotspot2_enabled">false</bool>
 -    <bool name="config_wifi_background_scan_support">true</bool>
 +    <bool name="config_wifi_background_scan_support">false</bool>
      <bool name="config_wifi_enable_disconnection_debounce">true</bool>
-     <bool name="config_wifi_enable_5GHz_preference">true</bool>
      <bool name="config_wifi_revert_country_code_on_cellular_loss">false</bool>
-@@ -48,7 +48,7 @@
+-    <bool name="config_wifi_enable_wifi_firmware_debugging">true</bool>
++    <bool name="config_wifi_enable_wifi_firmware_debugging">false</bool>
+     <bool name="config_wifi_turn_off_during_emergency_call">false</bool>
+     <bool name="config_wifi_framework_cellular_handover_enable_user_triggered_adjustment">true</bool>
+     <bool name="config_wifi_framework_enable_associated_network_selection">false</bool>
+@@ -45,7 +45,7 @@
      <bool name="config_allowTheaterModeWakeFromPowerKey">true</bool>
-     <bool name="config_allowTheaterModeWakeFromKey">false</bool>
+     <bool name="config_allowTheaterModeWakeFromKey">true</bool>
      <bool name="config_allowTheaterModeWakeFromMotion">false</bool>
 -    <bool name="config_allowTheaterModeWakeFromMotionWhenNotDreaming">false</bool>
 +    <bool name="config_allowTheaterModeWakeFromMotionWhenNotDreaming">true</bool>
      <bool name="config_allowTheaterModeWakeFromLidSwitch">false</bool>
      <bool name="config_allowTheaterModeWakeFromDock">false</bool>
      <bool name="config_allowTheaterModeWakeFromWindowLayout">false</bool>
-@@ -58,7 +58,7 @@
-     <bool name="config_allowAllRotations">false</bool>
+@@ -56,7 +56,7 @@
      <bool name="config_reverseDefaultRotation">false</bool>
+     <bool name="config_lidControlsScreenLock">false</bool>
      <bool name="config_lidControlsSleep">false</bool>
 -    <bool name="config_deskDockEnablesAccelerometer">false</bool>
 +    <bool name="config_deskDockEnablesAccelerometer">true</bool>
      <bool name="config_carDockEnablesAccelerometer">true</bool>
-     <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
-     <bool name="config_batterySdCardAccessibility">false</bool>
-@@ -130,9 +130,9 @@
+     <bool name="config_enableCarDockHomeLaunch">true</bool>
+     <bool name="config_lockUiMode">false</bool>
+@@ -136,9 +136,9 @@
      <bool name="config_forceDefaultOrientation">false</bool>
      <bool name="config_stkNoAlphaUsrCnf">true</bool>
      <bool name="config_hasPermanentDpad">false</bool>
@@ -116,9 +123,9 @@
 +    <bool name="config_windowShowCircularMask">false</bool>
      <bool name="config_windowEnableCircularEmulatorDisplayOverlay">false</bool>
      <bool name="skipHoldBeforeMerge">true</bool>
-     <bool name="useImsAlwaysForEmergencyCall">true</bool>
-@@ -158,7 +158,7 @@
-     <bool name="config_use_sim_language_file">true</bool>
+     <bool name="imsServiceAllowTurnOff">true</bool>
+@@ -164,7 +164,7 @@
+     <bool name="config_use_sim_language_file">false</bool>
      <bool name="config_LTE_eri_for_network_name">true</bool>
      <bool name="config_defaultInTouchMode">true</bool>
 -    <bool name="config_enableBurnInProtection">true</bool>
@@ -126,36 +133,38 @@
      <bool name="config_allowAnimationsInLowPowerMode">true</bool>
      <bool name="config_supportDoubleTapWake">false</bool>
      <item type="bool" name="config_mainBuiltInDisplayIsRound">@bool/config_windowIsRound</item>
---- ./extract/lenok-framework-res/res/values/integers.xml	2016-09-14 18:16:35.254554583 +0300
-+++ ./extract/lenok-framework-res/res/values/integers.xml	2016-09-14 18:14:58.313370842 +0300
-@@ -78,7 +78,7 @@
-     <integer name="config_shortPressOnPowerBehavior">4</integer>
-     <integer name="config_doublePressOnPowerBehavior">1</integer>
-     <integer name="config_triplePressOnPowerBehavior">2</integer>
+--- temp/lenok-framework-res/res/values/integers.xml
++++ temp/lenok-framework-res/res/values/integers.xml
+@@ -85,7 +85,7 @@
+     <integer name="config_shortPressOnPowerBehavior">5</integer>
+     <integer name="config_doublePressOnPowerBehavior">0</integer>
+     <integer name="config_triplePressOnPowerBehavior">0</integer>
 -    <integer name="config_shortPressOnSleepBehavior">0</integer>
 +    <integer name="config_shortPressOnSleepBehavior">1</integer>
      <integer name="config_criticalBatteryWarningLevel">5</integer>
      <integer name="config_shutdownBatteryTemperature">600</integer>
      <integer name="config_lowBatteryWarningLevel">15</integer>
-@@ -94,13 +94,13 @@
+@@ -101,15 +101,15 @@
      <integer name="config_longPressOnHomeBehavior">0</integer>
      <integer name="config_doubleTapOnHomeBehavior">0</integer>
      <integer name="config_screenBrightnessSettingMinimum">10</integer>
 -    <integer name="config_screenBrightnessSettingMaximum">254</integer>
 -    <integer name="config_screenBrightnessSettingDefault">208</integer>
--    <integer name="config_screenBrightnessDoze">0</integer>
+-    <integer name="config_screenBrightnessDoze">95</integer>
 +    <integer name="config_screenBrightnessSettingMaximum">255</integer>
 +    <integer name="config_screenBrightnessSettingDefault">153</integer>
 +    <integer name="config_screenBrightnessDoze">10</integer>
      <integer name="config_autoBrightnessBrighteningLightDebounce">4000</integer>
      <integer name="config_autoBrightnessDarkeningLightDebounce">8000</integer>
+     <integer name="config_autoBrightnessInitialLightSensorRate">0</integer>
      <integer name="config_autoBrightnessLightSensorRate">250</integer>
--    <integer name="config_screenBrightnessDim">5</integer>
+     <integer name="config_autoBrightnessAmbientLightHorizon">10000</integer>
+-    <integer name="config_screenBrightnessDim">95</integer>
 +    <integer name="config_screenBrightnessDim">10</integer>
      <integer name="config_screenBrightnessDark">1</integer>
      <integer name="config_lightSensorWarmupTime">0</integer>
      <integer name="config_virtualKeyQuietTimeMillis">0</integer>
-@@ -148,11 +148,11 @@
+@@ -158,11 +158,11 @@
      <integer name="config_LTE_RSRP_threshold_type">1</integer>
      <integer name="config_zen_repeat_callers_threshold">15</integer>
      <integer name="config_screen_magnification_multi_tap_adjustment">-50</integer>
@@ -172,8 +181,8 @@
      <integer name="config_fingerprintMaxTemplatesPerUser">5</integer>
      <integer name="config_previousVibrationsDumpLimit">100</integer>
      <integer name="config_mdc_initial_max_retry">1</integer>
---- ./extract/lenok-framework-res/res/xml/power_profile.xml	2016-09-14 18:16:31.742673373 +0300
-+++ ./extract/lenok-framework-res/res/xml/power_profile.xml	2016-09-14 18:14:55.657425716 +0300
+--- temp/lenok-framework-res/res/xml/power_profile.xml
++++ temp/lenok-framework-res/res/xml/power_profile.xml
 @@ -1,20 +1,17 @@
  <?xml version="1.0" encoding="utf-8"?>
  <device name="Android">
@@ -202,18 +211,19 @@
 -    <item name="battery.capacity">410</item>
 +    <item name="battery.capacity">400</item>
  </device>
---- ./extract/lenok-OEMSetup/smali/com/lge/wearable/oemconfig/SetupBroadcastReceiver.smali	2016-09-15 17:45:08.865045985 +0300
-+++ ./extract/lenok-OEMSetup/smali/com/lge/wearable/oemconfig/SetupBroadcastReceiver.smali	2016-09-15 17:45:26.809021873 +0300
-@@ -27,6 +27,6 @@
+--- temp/lenok-OEMSetup/smali/com/lge/wearable/oemconfig/SetupBroadcastReceiver.smali
++++ temp/lenok-OEMSetup/smali/com/lge/wearable/oemconfig/SetupBroadcastReceiver.smali
+@@ -29,7 +29,7 @@
      const/4 v1, 0x0
  
-     .line 15
--    const-string v0, "G Watch R"
-+    const-string v0, "G Watch"
+     .line 16
+-    const-string/jumbo v0, "G Watch R"
++    const-string/jumbo v0, "G Watch"
  
      sput-object v0, Lcom/lge/wearable/oemconfig/SetupBroadcastReceiver;->product_name:Ljava/lang/String;
---- ./extract/lenok-SettingsProvider/res/values/integers.xml	2016-09-26 19:21:52.078812154 +0300
-+++ ./extract/lenok-SettingsProvider/res/values/integers.xml	2016-09-26 19:22:31.539134709 +0300
+ 
+--- temp/lenok-SettingsProvider/res/values/integers.xml
++++ temp/lenok-SettingsProvider/res/values/integers.xml
 @@ -2,7 +2,7 @@
  <resources>
      <integer name="def_screen_off_timeout">30000</integer>
@@ -223,8 +233,8 @@
      <integer name="def_wifi_sleep_policy">2</integer>
      <integer name="def_power_sounds_enabled">0</integer>
      <integer name="def_dock_sounds_enabled">0</integer>
---- ./extract/lenok-ClockworkAmbient/res/values/arrays.xml	2016-09-26 18:52:56.139936860 +0300
-+++ ./extract/lenok-ClockworkAmbient/res/values/arrays.xml	2016-09-26 18:53:37.063788318 +0300
+--- temp/lenok-ClockworkAmbient/res/values/arrays.xml
++++ temp/lenok-ClockworkAmbient/res/values/arrays.xml
 @@ -1,4 +1,9 @@
  <?xml version="1.0" encoding="utf-8"?>
  <resources>
@@ -236,45 +246,24 @@
 +        <item>10</item>
 +    </integer-array>
  </resources>
---- /dev/null	2016-09-25 14:36:41.321173159 +0300
-+++ ./extract/lenok-ClockworkAmbient/res/values/bools.xml	2016-09-26 18:53:37.067787583 +0300
+--- /dev/null
++++ temp/lenok-ClockworkAmbient/res/values/bools.xml
 @@ -0,0 +1,4 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources>
 +    <bool name="config_touchWakeUpInTheaterMode">true</bool>
 +</resources>
---- ./extract/lenok-ClockworkAmbient/res/values/public.xml	2016-09-26 18:52:56.187926554 +0300
-+++ ./extract/lenok-ClockworkAmbient/res/values/public.xml	2016-09-26 18:53:37.123777298 +0300
+--- temp/lenok-ClockworkAmbient/res/values/public.xml
++++ temp/lenok-ClockworkAmbient/res/values/public.xml
 @@ -147,4 +147,5 @@
      <public type="string" name="perm_description_stop_ambient_dream" id="0x7f060002" />
      <public type="string" name="perm_label_receive_ambient_dream_state" id="0x7f060003" />
      <public type="string" name="perm_description_receive_ambient_dream_state" id="0x7f060004" />
 +    <public type="bool" name="config_touchWakeUpInTheaterMode" id="0x7f070000" />
  </resources>
---- ./extract/lenok-MinModWatchfaces/res/values/bools.xml	2016-09-26 19:13:04.031109691 +0300
-+++ ./extract/lenok-MinModWatchfaces/res/values/bools.xml	2016-09-26 19:12:19.406029575 +0300
-@@ -2,13 +2,13 @@
- <resources>
-     <bool name="action_choose_expand_selected">true</bool>
-     <bool name="action_choose_symmetrical_dimen">false</bool>
--    <bool name="config_enableWatchFaceAviator">false</bool>
-+    <bool name="config_enableWatchFaceAviator">true</bool>
-     <bool name="config_enableWatchFaceDigitalog">true</bool>
-     <bool name="config_enableWatchFaceReveal">true</bool>
--    <bool name="config_enableWatchFaceOrbit">false</bool>
-+    <bool name="config_enableWatchFaceOrbit">true</bool>
-     <bool name="config_enableWatchFaceDashboard">true</bool>
-     <bool name="config_enableWatchFaceCoordinates">true</bool>
-     <bool name="config_enableWatchFaceRings">true</bool>
--    <bool name="config_enableWatchFacePolar">false</bool>
-+    <bool name="config_enableWatchFacePolar">true</bool>
-     <bool name="config_enableWatchFacePlanetary">true</bool>
- </resources>
---- ./extract/lenok-ClockworkSettings/res/values/arrays.xml	2016-09-26 19:05:54.740783333 +0300
-+++ ./extract/lenok-ClockworkSettings/res/values/arrays.xml	2016-09-26 19:04:58.881699561 +0300
-@@ -35,12 +35,12 @@
-         <item>#ff0f9d58</item>
-     </array>
+--- temp/lenok-ClockworkSettings/res/values/arrays.xml
++++ temp/lenok-ClockworkSettings/res/values/arrays.xml
+@@ -329,8 +329,8 @@
      <integer-array name="brightness_levels">
 -        <item>254</item>
 -        <item>226</item>
@@ -289,18 +278,16 @@
 +        <item>76</item>
 +        <item>51</item>
      </integer-array>
-     <string-array name="system_app_notif_whitelist">
-         <item>com.google.android.apps.fitness</item>
---- ./extract/lenok-ClockworkSettings/res/values/bools.xml	2016-09-26 19:05:55.008779249 +0300
-+++ ./extract/lenok-ClockworkSettings/res/values/bools.xml	2016-09-26 19:04:59.157694689 +0300
+--- temp/lenok-ClockworkSettings/res/values/bools.xml
++++ temp/lenok-ClockworkSettings/res/values/bools.xml
 @@ -10,8 +10,8 @@
-     <bool name="action_choose_expand_selected">true</bool>
-     <bool name="action_choose_symmetrical_dimen">false</bool>
+     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
+     <bool name="abc_config_closeDialogWhenTouchOutside">true</bool>
      <bool name="config_supportsBluetoothHeadsets">true</bool>
 -    <bool name="config_theaterModeTouchToWake">false</bool>
 -    <bool name="side_button_present">true</bool>
 +    <bool name="config_theaterModeTouchToWake">true</bool>
 +    <bool name="side_button_present">false</bool>
      <bool name="config_multiple_side_buttons_present">false</bool>
+     <bool name="config_exercise_detection_supported">false</bool>
      <bool name="config_sunlightModeEnabled">true</bool>
-     <bool name="config_disableAmbientInTheaterMode">true</bool>
