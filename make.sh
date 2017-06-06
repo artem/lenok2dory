@@ -48,7 +48,7 @@ cd $BUILD_DIR
 
 
 echo
-echo "***** Patching lenok's system... *****"
+echo "***** Decompiling lenok's resources, please wait... *****"
 echo
 apktool -q if -p temp/framedir/ extract/lenok/framework/framework-res.apk
 apktool -q d -f -o temp/lenok-framework-res/ extract/lenok/framework/framework-res.apk
@@ -58,6 +58,9 @@ apktool -q d -s -f -p temp/framedir/ -o temp/lenok-SettingsProvider/ extract/len
 apktool -q d -s -f -p temp/framedir/ -o temp/lenok-ClockworkAmbient/ extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
 apktool -q d -s -f -p temp/framedir/ -o temp/lenok-ClockworkSettings/ extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
 
+echo
+echo "***** Patching lenok's system... *****"
+echo
 sudo patch -p0 -l -i patch/dory.patch
 # Disable checking certs for shared system apps
 # Because framework-res.apk is app with shared user id, system checks its signature anyway. Let's avoid this behavior
