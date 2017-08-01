@@ -1,17 +1,17 @@
 --- temp/lenok-services/smali/com/android/server/pm/PackageManagerService.smali
 +++ temp/lenok-services/smali/com/android/server/pm/PackageManagerService.smali
-@@ -47769,70 +47769,6 @@
+@@ -47876,70 +47876,6 @@
  
      iput-object v5, v4, Lcom/android/server/pm/PackageSignatures;->mSignatures:[Landroid/content/pm/Signature;
  
--    .line 8351
+-    .line 8355
 -    move-object/from16 v0, v62
 -
 -    iget-object v4, v0, Lcom/android/server/pm/PackageSetting;->sharedUser:Lcom/android/server/pm/SharedUserSetting;
 -
 -    if-eqz v4, :cond_26
 -
--    .line 8352
+-    .line 8356
 -    move-object/from16 v0, v62
 -
 -    iget-object v4, v0, Lcom/android/server/pm/PackageSetting;->sharedUser:Lcom/android/server/pm/SharedUserSetting;
@@ -20,22 +20,22 @@
 -
 -    iget-object v4, v4, Lcom/android/server/pm/PackageSignatures;->mSignatures:[Landroid/content/pm/Signature;
 -
--    .line 8353
+-    .line 8357
 -    move-object/from16 v0, p1
 -
 -    iget-object v5, v0, Landroid/content/pm/PackageParser$Package;->mSignatures:[Landroid/content/pm/Signature;
 -
--    .line 8352
+-    .line 8356
 -    invoke-static {v4, v5}, Lcom/android/server/pm/PackageManagerService;->compareSignatures([Landroid/content/pm/Signature;[Landroid/content/pm/Signature;)I
 -
 -    move-result v4
 -
 -    if-eqz v4, :cond_26
 -
--    .line 8354
+-    .line 8358
 -    new-instance v4, Lcom/android/server/pm/PackageManagerException;
 -
--    .line 8356
+-    .line 8360
 -    new-instance v5, Ljava/lang/StringBuilder;
 -
 -    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -46,12 +46,12 @@
 -
 -    move-result-object v5
 -
--    .line 8357
+-    .line 8361
 -    move-object/from16 v0, v62
 -
 -    iget-object v11, v0, Lcom/android/server/pm/PackageSetting;->sharedUser:Lcom/android/server/pm/SharedUserSetting;
 -
--    .line 8356
+-    .line 8360
 -    invoke-virtual {v5, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 -
 -    move-result-object v5
@@ -60,14 +60,14 @@
 -
 -    move-result-object v5
 -
--    .line 8355
+-    .line 8359
 -    const/16 v11, -0x68
 -
--    .line 8354
+-    .line 8358
 -    invoke-direct {v4, v11, v5}, Lcom/android/server/pm/PackageManagerException;-><init>(ILjava/lang/String;)V
 -
 -    throw v4
 -
-     .line 8361
+     .line 8365
      :cond_26
      new-instance v4, Ljava/lang/StringBuilder;

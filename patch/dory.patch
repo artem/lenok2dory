@@ -280,7 +280,7 @@
      </integer-array>
 --- temp/lenok-ClockworkSettings/res/values/bools.xml
 +++ temp/lenok-ClockworkSettings/res/values/bools.xml
-@@ -10,8 +10,8 @@
+@@ -11,8 +11,8 @@
      <bool name="abc_config_actionMenuItemAllCaps">true</bool>
      <bool name="abc_config_closeDialogWhenTouchOutside">true</bool>
      <bool name="config_supportsBluetoothHeadsets">true</bool>
