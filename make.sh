@@ -1,4 +1,4 @@
-f#!/bin/sh
+#!/bin/sh
 
 clear
 echo "***** lenok2dory patcher started! *****"
