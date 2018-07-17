@@ -73,42 +73,42 @@ cd temp/lenok-SettingsProvider/dist/
 zipalign -fp 4 SettingsProvider.apk SettingsProvider-aligned.apk
 mv SettingsProvider-aligned.apk SettingsProvider.apk
 cd $BUILD_DIR
-sudo sh -c "(cat temp/lenok-SettingsProvider/dist/SettingsProvider.apk > extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk)"
+sudo cp -a temp/lenok-SettingsProvider/dist/SettingsProvider.apk extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk
 
 apktool b -c -p temp/framedir/ temp/lenok-ClockworkAmbient/
 cd temp/lenok-ClockworkAmbient/dist/
 zipalign -fp 4 ClockworkAmbient.apk ClockworkAmbient-aligned.apk
 mv ClockworkAmbient-aligned.apk ClockworkAmbient.apk
 cd $BUILD_DIR
-sudo sh -c "(cat temp/lenok-ClockworkAmbient/dist/ClockworkAmbient.apk > extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk)"
+sudo cp -a temp/lenok-ClockworkAmbient/dist/ClockworkAmbient.apk extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
 
 apktool b -c -p temp/framedir/ temp/lenok-ClockworkSettings/
 cd temp/lenok-ClockworkSettings/dist/
 zipalign -fp 4 ClockworkSettings.apk ClockworkSettings-aligned.apk
 mv ClockworkSettings-aligned.apk ClockworkSettings.apk
 cd $BUILD_DIR
-sudo sh -c "(cat temp/lenok-ClockworkSettings/dist/ClockworkSettings.apk > extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk)"
+sudo cp -a temp/lenok-ClockworkSettings/dist/ClockworkSettings.apk extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
 
 apktool b -c temp/lenok-OEMSetup/
 cd temp/lenok-OEMSetup/dist/
 zipalign -fp 4 OEMSetup.apk OEMSetup-aligned.apk
 mv OEMSetup-aligned.apk OEMSetup.apk
 cd $BUILD_DIR
-sudo sh -c "(cat temp/lenok-OEMSetup/dist/OEMSetup.apk > extract/lenok/priv-app/OEMSetup/OEMSetup.apk)"
+sudo cp -a temp/lenok-OEMSetup/dist/OEMSetup.apk extract/lenok/priv-app/OEMSetup/OEMSetup.apk
 
 apktool b -c temp/lenok-framework-res/
 cd temp/lenok-framework-res/dist/
 zipalign -fp 4 framework-res.apk framework-res-aligned.apk
 mv framework-res-aligned.apk framework-res.apk
 cd $BUILD_DIR
-sudo sh -c "(cat temp/lenok-framework-res/dist/framework-res.apk > extract/lenok/framework/framework-res.apk)"
+sudo cp -a temp/lenok-framework-res/dist/framework-res.apk extract/lenok/framework/framework-res.apk
 
 apktool b -c temp/lenok-services/
 cd temp/lenok-services/dist/
 zipalign -fp 4 services.jar services-aligned.jar
 mv services-aligned.jar services.jar
 cd $BUILD_DIR
-sudo sh -c "(cat temp/lenok-services/dist/services.jar > extract/lenok/framework/services.jar)"
+sudo cp -a temp/lenok-services/dist/services.jar extract/lenok/framework/services.jar
 
 cd extract/
 sudo rm lenok/build.prop.orig
