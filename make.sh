@@ -17,14 +17,20 @@ export BUILD_DIR=`pwd`
 echo
 echo "***** Cleaning up... *****"
 echo
-sudo rm -rf extract/ temp/
+sudo rm -rf temp/
 
 echo
 echo "***** Extracting images... *****"
 echo
 mkdir -p extract/dory/ extract/lenok/
-sudo unsquashfs -f -d extract/lenok/ images/lenok/system.img
-sudo unsquashfs -f -d extract/dory/ images/dory/system.img
+mkdir -p mnt/dory/ mnt/lenok/
+sudo mount images/lenok/system.img mnt/lenok/
+sudo mount images/dory/system.img mnt/dory/
+sudo rsync -a mnt/lenok/ extract/lenok/
+sudo rsync -a mnt/dory/ extract/dory/
+sudo umount mnt/lenok/
+sudo umount mnt/dory/
+rm -rf mnt
 
 
 echo
