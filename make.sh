@@ -1,6 +1,13 @@
 #!/bin/sh
 
-clear
+pushd () {
+    command pushd "$@" > /dev/null
+}
+
+popd () {
+    command popd "$@" > /dev/null
+}
+
 echo "***** lenok2dory patcher started! *****"
 echo
 echo "***** You maybe will be asked for root permissions *****"
@@ -10,7 +17,7 @@ if [ "`sudo whoami`" != "root" ]
   exit 1
 fi
 
-export BUILD_DIR=`pwd`
+pushd `pwd`
 # export PATH=$BUILD_DIR/prebuilt:$PATH
 
 
@@ -36,21 +43,31 @@ rm -rf mnt
 echo
 echo "***** Cleaning lenok's system... *****"
 echo
-cd extract/lenok/bin/
-sudo rm install-recovery.sh irsc_util sensors.qcom subsystem_ramdump wpa_supplicant ../recovery-from-boot.p
 
-cd ../etc/
-sudo rm -rf firmware/ permissions/android.hardware.sensor.barometer.xml permissions/android.hardware.sensor.heartrate.xml \
-permissions/android.hardware.wifi.xml recovery-resource.dat sensors/sensor_def_lenok.conf wifi/
+pushd extract/lenok/
+sudo rm recovery-from-boot.p
 
-cd ../lib/
+pushd bin/
+sudo rm install-recovery.sh irsc_util sensors.qcom subsystem_ramdump wpa_supplicant
+popd
+
+pushd etc/
+sudo rm -rf firmware/ recovery-resource.dat sensors/sensor_def_lenok.conf wifi/
+pushd permissions/
+sudo rm -rf android.hardware.sensor.barometer.xml android.hardware.sensor.heartrate.xml android.hardware.wifi.xml
+popd
+popd
+
+pushd lib/
 sudo rm hw/*lenok.so #libwpa_client.so FIXME
+popd
 
-cd ../vendor/lib/
+pushd vendor/lib/
 sudo rm -rf ../firmware hw/ libAKM8963.so libdiag.so libdsutils.so libidl.so libmdmdetect.so libqmi* libsensor1.so \
 libsensor_reg.so libsensor_user_cal.so
+popd
 
-cd $BUILD_DIR
+popd
 
 
 echo
@@ -75,54 +92,54 @@ sudo sed -i "/\b\(ro.build.expect.bootloader\|ro.expect.recovery_id\)\b/d" extra
 cp patch/product_image.png temp/lenok-OEMSetup/res/drawable-hdpi-v4/
 
 apktool b -c -p temp/framedir/ temp/lenok-SettingsProvider/
-cd temp/lenok-SettingsProvider/dist/
+pushd temp/lenok-SettingsProvider/dist/
 zipalign -fp 4 SettingsProvider.apk SettingsProvider-aligned.apk
 mv SettingsProvider-aligned.apk SettingsProvider.apk
-cd $BUILD_DIR
+popd
 sudo cp temp/lenok-SettingsProvider/dist/SettingsProvider.apk extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk
 sudo chown root:root extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk
 
 apktool b -c -p temp/framedir/ temp/lenok-ClockworkAmbient/
-cd temp/lenok-ClockworkAmbient/dist/
+pushd temp/lenok-ClockworkAmbient/dist/
 zipalign -fp 4 ClockworkAmbient.apk ClockworkAmbient-aligned.apk
 mv ClockworkAmbient-aligned.apk ClockworkAmbient.apk
-cd $BUILD_DIR
+popd
 sudo cp temp/lenok-ClockworkAmbient/dist/ClockworkAmbient.apk extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
 sudo chown root:root extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
 
 apktool b -c -p temp/framedir/ temp/lenok-ClockworkSettings/
-cd temp/lenok-ClockworkSettings/dist/
+pushd temp/lenok-ClockworkSettings/dist/
 zipalign -fp 4 ClockworkSettings.apk ClockworkSettings-aligned.apk
 mv ClockworkSettings-aligned.apk ClockworkSettings.apk
-cd $BUILD_DIR
+popd
 sudo cp temp/lenok-ClockworkSettings/dist/ClockworkSettings.apk extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
 sudo chown root:root extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
 
 apktool b -c temp/lenok-OEMSetup/
-cd temp/lenok-OEMSetup/dist/
+pushd temp/lenok-OEMSetup/dist/
 zipalign -fp 4 OEMSetup.apk OEMSetup-aligned.apk
 mv OEMSetup-aligned.apk OEMSetup.apk
-cd $BUILD_DIR
+popd
 sudo cp temp/lenok-OEMSetup/dist/OEMSetup.apk extract/lenok/priv-app/OEMSetup/OEMSetup.apk
 sudo chown root:root extract/lenok/priv-app/OEMSetup/OEMSetup.apk
 
 apktool b -c temp/lenok-framework-res/
-cd temp/lenok-framework-res/dist/
+pushd temp/lenok-framework-res/dist/
 zipalign -fp 4 framework-res.apk framework-res-aligned.apk
 mv framework-res-aligned.apk framework-res.apk
-cd $BUILD_DIR
+popd
 sudo cp temp/lenok-framework-res/dist/framework-res.apk extract/lenok/framework/framework-res.apk
 sudo chown root:root extract/lenok/framework/framework-res.apk
 
 apktool b -c temp/lenok-services/
-cd temp/lenok-services/dist/
+pushd temp/lenok-services/dist/
 zipalign -fp 4 services.jar services-aligned.jar
 mv services-aligned.jar services.jar
-cd $BUILD_DIR
+popd
 sudo cp temp/lenok-services/dist/services.jar extract/lenok/framework/services.jar
 sudo chown root:root extract/lenok/framework/services.jar
 
-cd extract/
+pushd extract/
 sudo rm lenok/build.prop.orig
 
 sudo cp -a dory/bin/batteryd lenok/bin/
@@ -142,7 +159,7 @@ sudo cp -a dory/lib/hw/sensors.dory.so lenok/lib/hw/
 sudo cp -a dory/lib/hw/sensors.invensense.so lenok/lib/hw/
 sudo cp -a dory/media/bootanimation.zip lenok/media/
 sudo cp -ar dory/vendor/firmware/ lenok/vendor/
-cd $BUILD_DIR
+popd
 
 
 echo
@@ -152,6 +169,8 @@ echo
 sudo prebuilt/mksquashfs extract/lenok/ system4dory.img -comp lz4 -b 131072 -no-exports -noappend -no-fragments -no-duplicates \
 -android-fs-config -context-file file_contexts -mount-point /system
 sudo chmod 777 system4dory.img
+
+popd
 
 echo
 echo "***** Done! *****"
