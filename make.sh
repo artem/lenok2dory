@@ -8,6 +8,8 @@ popd () {
     command popd "$@" > /dev/null
 }
 
+
+
 echo "***** lenok2dory patcher started! *****"
 echo
 echo "***** You maybe will be asked for root permissions *****"
@@ -84,6 +86,10 @@ apktool -q d -s -f -p temp/framedir/ -o temp/lenok-ClockworkSettings/ extract/le
 echo
 echo "***** Patching lenok's system... *****"
 echo
+
+sudo cp patch/media/bootanimation.zip lenok/media/
+sudo chown root:root lenok/media/bootanimation.zip
+
 sudo patch -p0 -l -i patch/dory.patch
 # Disable checking certs for shared system apps
 # Because framework-res.apk is app with shared user id, system checks its signature anyway. Let's avoid this behavior
@@ -157,7 +163,7 @@ sudo cp -a dory/lib/hw/lis3dsh_tilt.so lenok/lib/hw/
 sudo cp -a dory/lib/hw/power.dory.so lenok/lib/hw/
 sudo cp -a dory/lib/hw/sensors.dory.so lenok/lib/hw/
 sudo cp -a dory/lib/hw/sensors.invensense.so lenok/lib/hw/
-sudo cp -a dory/media/bootanimation.zip lenok/media/
+# sudo cp -a dory/media/bootanimation.zip lenok/media/
 sudo cp -ar dory/vendor/firmware/ lenok/vendor/
 popd
 
