@@ -96,8 +96,8 @@ echo
 echo "***** Patching lenok's system... *****"
 echo
 
-sudo cp patch/media/bootanimation.zip lenok/media/
-sudo chown root:root lenok/media/bootanimation.zip
+sudo cp patch/media/bootanimation.zip extract/lenok/media/
+sudo chown root:root extract/lenok/media/bootanimation.zip
 
 sudo patch -p0 -l -i patch/dory.patch
 # Disable checking certs for shared system apps
