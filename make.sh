@@ -143,8 +143,8 @@ echo
 echo "***** Making system image... *****"
 echo
 # sudo env "PATH=$PATH" mksquashfsimage.sh extract/lenok system4dory.img -s -m /system -c file_contexts
-sudo prebuilt/mksquashfs extract/lenok/ system4dory.img -comp gzip -b 131072 -no-exports -noappend -android-fs-config \
--context-file file_contexts -mount-point /system
+sudo prebuilt/mksquashfs extract/lenok/ system4dory.img -comp lz4 -b 131072 -no-exports -noappend -no-fragments -no-duplicates \
+-android-fs-config -context-file file_contexts -mount-point /system
 sudo chmod 777 system4dory.img
 
 echo
