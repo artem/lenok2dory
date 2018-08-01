@@ -9,7 +9,7 @@ popd () {
 }
 
 build_priv-apk () {
-    apktool b -c -p temp/framedir/ temp/lenok-$1/
+    apktool -q b -c -p temp/framedir/ temp/lenok-$1/
 	pushd temp/lenok-$1/dist/
 	zipalign -fp 4 $1.apk $1-aligned.apk
 	mv $1-aligned.apk $1.apk
@@ -111,7 +111,7 @@ build_priv-apk ClockworkAmbient
 build_priv-apk ClockworkSettings
 build_priv-apk OEMSetup
 
-apktool b -c temp/lenok-framework-res/
+apktool -q b -c temp/lenok-framework-res/
 pushd temp/lenok-framework-res/dist/
 zipalign -fp 4 framework-res.apk framework-res-aligned.apk
 mv framework-res-aligned.apk framework-res.apk
@@ -119,7 +119,7 @@ popd
 sudo cp temp/lenok-framework-res/dist/framework-res.apk extract/lenok/framework/framework-res.apk
 sudo chown root:root extract/lenok/framework/framework-res.apk
 
-apktool b -c temp/lenok-services/
+apktool -q b -c temp/lenok-services/
 pushd temp/lenok-services/dist/
 zipalign -fp 4 services.jar services-aligned.jar
 mv services-aligned.jar services.jar
