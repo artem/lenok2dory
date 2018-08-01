@@ -8,6 +8,15 @@ popd () {
     command popd "$@" > /dev/null
 }
 
+build_priv-apk () {
+    apktool b -c -p temp/framedir/ temp/lenok-$1/
+	pushd temp/lenok-$1/dist/
+	zipalign -fp 4 $1.apk $1-aligned.apk
+	mv $1-aligned.apk $1.apk
+	popd
+	sudo cp temp/lenok-$1/dist/$1.apk extract/lenok/priv-app/$1/$1.apk
+	sudo chown root:root extract/lenok/priv-app/$1/$1.apk
+}
 
 
 echo "***** lenok2dory patcher started! *****"
@@ -97,37 +106,10 @@ patch -p0 -l < patch/shared-certs.patch
 sudo sed -i "/\b\(ro.build.expect.bootloader\|ro.expect.recovery_id\)\b/d" extract/lenok/build.prop
 cp patch/product_image.png temp/lenok-OEMSetup/res/drawable-hdpi-v4/
 
-apktool b -c -p temp/framedir/ temp/lenok-SettingsProvider/
-pushd temp/lenok-SettingsProvider/dist/
-zipalign -fp 4 SettingsProvider.apk SettingsProvider-aligned.apk
-mv SettingsProvider-aligned.apk SettingsProvider.apk
-popd
-sudo cp temp/lenok-SettingsProvider/dist/SettingsProvider.apk extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk
-sudo chown root:root extract/lenok/priv-app/SettingsProvider/SettingsProvider.apk
-
-apktool b -c -p temp/framedir/ temp/lenok-ClockworkAmbient/
-pushd temp/lenok-ClockworkAmbient/dist/
-zipalign -fp 4 ClockworkAmbient.apk ClockworkAmbient-aligned.apk
-mv ClockworkAmbient-aligned.apk ClockworkAmbient.apk
-popd
-sudo cp temp/lenok-ClockworkAmbient/dist/ClockworkAmbient.apk extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
-sudo chown root:root extract/lenok/priv-app/ClockworkAmbient/ClockworkAmbient.apk
-
-apktool b -c -p temp/framedir/ temp/lenok-ClockworkSettings/
-pushd temp/lenok-ClockworkSettings/dist/
-zipalign -fp 4 ClockworkSettings.apk ClockworkSettings-aligned.apk
-mv ClockworkSettings-aligned.apk ClockworkSettings.apk
-popd
-sudo cp temp/lenok-ClockworkSettings/dist/ClockworkSettings.apk extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
-sudo chown root:root extract/lenok/priv-app/ClockworkSettings/ClockworkSettings.apk
-
-apktool b -c temp/lenok-OEMSetup/
-pushd temp/lenok-OEMSetup/dist/
-zipalign -fp 4 OEMSetup.apk OEMSetup-aligned.apk
-mv OEMSetup-aligned.apk OEMSetup.apk
-popd
-sudo cp temp/lenok-OEMSetup/dist/OEMSetup.apk extract/lenok/priv-app/OEMSetup/OEMSetup.apk
-sudo chown root:root extract/lenok/priv-app/OEMSetup/OEMSetup.apk
+build_priv-apk SettingsProvider
+build_priv-apk ClockworkAmbient
+build_priv-apk ClockworkSettings
+build_priv-apk OEMSetup
 
 apktool b -c temp/lenok-framework-res/
 pushd temp/lenok-framework-res/dist/
